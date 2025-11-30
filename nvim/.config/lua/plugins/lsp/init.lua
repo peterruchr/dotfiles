@@ -1,1 +1,1 @@
-require(lua_ls)
+require('lua_ls')
