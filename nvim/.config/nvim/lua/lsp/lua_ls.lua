@@ -1,6 +1,7 @@
-local base = require('lsp.base')
+local base = require("lsp.base")
 
-require('lspconfig').lua_ls.setup({
+-- Define the server config
+vim.lsp.config("lua_ls", {
   on_attach = base.on_attach,
   capabilities = base.capabilities,
   settings = {
@@ -18,3 +19,6 @@ require('lspconfig').lua_ls.setup({
     },
   },
 })
+
+-- Enable the server
+vim.lsp.enable("lua_ls")
