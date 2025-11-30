@@ -1,9 +1,9 @@
 -- Set space as leader key
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- Enable nerd font if possible
-vim.g.have_nerd_font = true 
+vim.g.have_nerd_font = true
 
 -- Show line numbers and relative line number
 vim.o.number = true
@@ -14,11 +14,18 @@ vim.o.showmode = false
 
 -- Sync clipboard between OS and Neovim, scheduled since it can take some time.
 vim.schedule(function()
-  vim.o.clipboard = 'unnamedplus'
+	vim.o.clipboard = "unnamedplus"
 end)
 
 -- Enable break indent
 vim.o.breakindent = true
+
+-- setup indentation
+vim.o.expandtab = true
+vim.o.shiftwidth = 2
+vim.o.tabstop = 2
+vim.o.softtabstop = 2
+vim.o.smartindent = true
 
 -- Save undo history
 vim.o.undofile = true
@@ -28,7 +35,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- Keep signcolumn on by default
-vim.o.signcolumn = 'yes'
+vim.o.signcolumn = "yes"
 
 -- Decrease update time
 vim.o.updatetime = 250
@@ -49,10 +56,10 @@ vim.o.splitbelow = true
 --   See `:help lua-options`
 --   and `:help lua-options-guide`
 vim.o.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Preview substitutions live, as you type!
-vim.o.inccommand = 'split'
+vim.o.inccommand = "split"
 
 -- Show which line your cursor is on
 vim.o.cursorline = true
@@ -66,21 +73,21 @@ vim.o.scrolloff = 10
 vim.o.confirm = true
 
 ui = {
-    -- If you are using a Nerd Font: set icons to an empty table which will use the
-    -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
-    icons = vim.g.have_nerd_font and {} or {
-      cmd = '⌘',
-      config = '🛠',
-      event = '📅',
-      ft = '📂',
-      init = '⚙',
-      keys = '🗝',
-      plugin = '🔌',
-      runtime = '💻',
-      require = '🌙',
-      source = '📄',
-      start = '🚀',
-      task = '📌',
-      lazy = '💤 ',
-  },
+	-- If you are using a Nerd Font: set icons to an empty table which will use the
+	-- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
+	icons = vim.g.have_nerd_font and {} or {
+		cmd = "⌘",
+		config = "🛠",
+		event = "📅",
+		ft = "📂",
+		init = "⚙",
+		keys = "🗝",
+		plugin = "🔌",
+		runtime = "💻",
+		require = "🌙",
+		source = "📄",
+		start = "🚀",
+		task = "📌",
+		lazy = "💤 ",
+	},
 }
