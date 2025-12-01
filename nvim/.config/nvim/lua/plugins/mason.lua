@@ -2,7 +2,12 @@ return {
 	{
 		"mason-org/mason.nvim",
 		config = function()
-			require("mason").setup()
+			require("mason").setup({
+				registries = {
+					"github:mason-org/mason-registry",
+					"github:Crashdummyy/mason-registry",
+				},
+			})
 		end,
 	},
 	{
@@ -18,7 +23,7 @@ return {
 		"mason-org/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls" },
+				ensure_installed = { "lua_ls", "csharp_ls" },
 				automatic_installation = true,
 			})
 		end,
