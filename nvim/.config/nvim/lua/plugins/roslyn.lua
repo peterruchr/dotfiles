@@ -2,5 +2,8 @@ return {
 	"seblyng/roslyn.nvim",
 	---@module "roslyn.config"
 	---@type RoslynNvimConfig
-	opts = {},
+	opts = {
+		broad_search = true,
+		slient = true,
+	},
 }
