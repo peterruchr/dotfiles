@@ -72,30 +72,18 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
-ui = {
-	-- If you are using a Nerd Font: set icons to an empty table which will use the
-	-- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
-	icons = vim.g.have_nerd_font and {} or {
-		cmd = "⌘",
-		config = "🛠",
-		event = "📅",
-		ft = "📂",
-		init = "⚙",
-		keys = "🗝",
-		plugin = "🔌",
-		runtime = "💻",
-		require = "🌙",
-		source = "📄",
-		start = "🚀",
-		task = "📌",
-		lazy = "💤 ",
-	},
-}
-
 vim.diagnostic.config({
 	severity_sort = true,
 	float = { border = "rounded", source = "if_many" },
 	underline = { severity = vim.diagnostic.severity.ERROR },
+	signs = vim.g.have_nerd_font and {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "󰅚 ",
+			[vim.diagnostic.severity.WARN] = "󰀪 ",
+			[vim.diagnostic.severity.INFO] = "󰋽 ",
+			[vim.diagnostic.severity.HINT] = "󰌶 ",
+		},
+	} or {},
 	virtual_text = {
 		source = "if_many",
 		spacing = 2,
