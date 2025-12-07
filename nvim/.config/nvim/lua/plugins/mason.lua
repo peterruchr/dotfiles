@@ -23,7 +23,7 @@ return {
 		"mason-org/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "csharp_ls" },
+				ensure_installed = { "lua_ls" },
 				automatic_installation = true,
 			})
 		end,

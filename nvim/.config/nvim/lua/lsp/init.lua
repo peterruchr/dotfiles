@@ -1,2 +1,2 @@
 require("lsp.lua_ls")
-require("lsp.dotnet_csharp")
+require("lsp.roslyn")
