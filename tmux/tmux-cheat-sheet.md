@@ -10,28 +10,28 @@ tmux kill-session -t name — kill
 
 # Windows
 
-Ctrl-b c — new window
+Ctrl-a c — new window
 
-Ctrl-b , — rename window
+Ctrl-a , — rename window
 
-Ctrl-b w — list windows
+Ctrl-a w — list windows
 
-Ctrl-b & — close
+Ctrl-a & — close
 
 # Panes
 
-Ctrl-b % — vertical split
+Ctrl-a % — vertical split
 
-Ctrl-b " — horizontal split
+Ctrl-a " — horizontal split
 
-Ctrl-b o — cycle panes
+Ctrl-a o — cycle panes
 
-Ctrl-b x — kill pane
+Ctrl-a x — kill pane
 
 # Navigation
 
-Ctrl-b 1/2/3… — jump to window
+Ctrl-a 1/2/3… — jump to window
 
-Ctrl-b { / Ctrl-b } — move pane left/right
+Ctrl-a { / Ctrl-a } — move pane left/right
 
-Ctrl-b z — zoom pane
+Ctrl-a z — zoom pane
