@@ -11,8 +11,8 @@ padding = { x = 6, y = 6 }
 decorations_theme_variant = "Dark"
 
 [window.dimensions]
-columns = 100
-lines = 30
+columns = 200
+lines = 50
 
 [window.class]
 instance = "Alacritty"
