@@ -20,7 +20,6 @@ sudo apt install -y \
   stow \
   tmux \
   zsh \
-  fzf \
   ripgrep \
   fd-find \
   bat \
@@ -30,6 +29,10 @@ sudo apt install -y \
 
 # Install zoxide
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+
+# Install fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+sudo ~/.fzf/install
 
 echo "==> Installing git extras"
 sudo apt install -y gh
