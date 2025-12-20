@@ -26,7 +26,7 @@ sudo apt install -y \
   bat \
   eza \
   jq \
-  tree \
+  tree
 
 echo "==> Installing git extras"
 sudo apt install -y gh
@@ -35,6 +35,7 @@ echo "==> Setting up git defaults"
 git config --global core.editor nvim
 
 echo "==> Setup Fd find"
+# Ubuntu has some weirdness here.
 mkdir -p ~/.local/bin
 ln -s $(which fdfind) ~/.local/bin/fd
 
@@ -42,25 +43,44 @@ ln -s $(which fdfind) ~/.local/bin/fd
 echo "==> Installing Neovim"
 
 cd /usr/local/bin
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
-chmod +x nvim-linux-x86_64.appimage
-ln -sf /usr/local/bin/nvim-linux-x86_64.appimage /usr/local/bin/nvim
-
-# --- CLI aliases ---
-echo "==> Changing default shell to zsh"
-if [ "$SHELL" != "$(which zsh)" ]; then
-  chsh -s "$(which zsh)"
-fi
+sudo curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
+sudo chmod +x nvim-linux-x86_64.appimage
+sudo ln -sf /usr/local/bin/nvim-linux-x86_64.appimage /usr/local/bin/nvim
 
 # Install oh my zsh
+cd ~
 echo "==> Installing oh my zsh"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --keep-zshrc --unattended
 
 # Install starship
 echo "==> Installing Starship"
 curl -sS https://starship.rs/install.sh | sh
 
 # Do Stow commands
+echo "==> Stowing dotfiles"
+stow -v -t ~ -R zsh nvim git starship tmux 
+
+# Change shell
+echo "==> Changing default shell to zsh"
+if [ "$SHELL" != "$(which zsh)" ]; then
+  chsh -s "$(which zsh)"
+fi
+
+# Install zsh plugins
+echo "==> Installing zsh plugings"
+ZSH_CUSTOM=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
+
+# zsh-autosuggestions
+[ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ] && \
+git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+
+# zsh-syntax-highlighting
+[ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ] && \
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+
+# zsh-completions
+[ ! -d "$ZSH_CUSTOM/plugins/zsh-completions" ] && \
+git clone https://github.com/zsh-users/zsh-completions "$ZSH_CUSTOM/plugins/zsh-completions"
 
 # Still missing a hell of a lot of stuff. 
 echo "✅ Bootstrap complete."
