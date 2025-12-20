@@ -38,11 +38,11 @@ echo "==> Setup Fd find"
 mkdir -p ~/.local/bin
 ln -s $(which fdfind) ~/.local/bin/fd
 
+# Install Neovim
 echo "==> Installing Neovim"
 
 cd /usr/local/bin
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
-# TODO PRETTY SURE THIS IS WRONG!
 chmod +x nvim-linux-x86_64.appimage
 ln -sf /usr/local/bin/nvim-linux-x86_64.appimage /usr/local/bin/nvim
 
@@ -51,6 +51,14 @@ echo "==> Changing default shell to zsh"
 if [ "$SHELL" != "$(which zsh)" ]; then
   chsh -s "$(which zsh)"
 fi
+
+# Install oh my zsh
+echo "==> Installing oh my zsh"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# Install starship
+echo "==> Installing Starship"
+curl -sS https://starship.rs/install.sh | sh
 
 # Do Stow commands
 
