@@ -30,6 +30,9 @@ $character"""
 
 palette = 'catppuccin_mocha'
 
+[context]
+scan_timeout = 2000
+
 [os]
 disabled = false
 style = "bg:red fg:crust"

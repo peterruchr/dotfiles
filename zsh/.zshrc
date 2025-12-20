@@ -82,10 +82,10 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-#alias ls='eza --icons'
-#alias ll='eza -lah --icons'
-#alias cat='bat'
-#alias grep='rg'
+alias ls='eza --icons'
+alias ll='eza -lah --icons'
+alias cat='bat'
+alias grep='rg'
 
 # --- Editor ---
 export EDITOR=nvim
