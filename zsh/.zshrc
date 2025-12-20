@@ -91,7 +91,6 @@ alias grep='rg'
 export EDITOR=nvim
 export VISUAL=nvim
 
-source <(fzf --zsh)
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
@@ -102,3 +101,5 @@ ZSH_AUTOSUGGEST_STRATEGY=(history)
 # export LANG=en_US.UTF-8
 
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)

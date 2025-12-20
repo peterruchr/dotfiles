@@ -45,6 +45,9 @@ echo "==> Setup Fd find"
 mkdir -p ~/.local/bin
 ln -s $(which fdfind) ~/.local/bin/fd
 
+echo "==> Setup bat"
+ln -s /usr/bin/batcat ~/.local/bin/bat
+
 # Install Neovim
 echo "==> Installing Neovim"
 
