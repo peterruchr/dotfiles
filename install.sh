@@ -26,7 +26,10 @@ sudo apt install -y \
   bat \
   eza \
   jq \
-  tree
+  tree \
+
+# Install zoxide
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 
 echo "==> Installing git extras"
 sudo apt install -y gh
