@@ -58,7 +58,13 @@ curl -sS https://starship.rs/install.sh | sh
 
 # Do Stow commands
 echo "==> Stowing dotfiles"
-stow -v -t ~ -R zsh nvim git starship tmux 
+cd dotfiles
+# Okay so this is kinda tricky, first we adopt anything that is already there, that means we create symlins.
+stow -v -t ~ --adopt zsh nvim git starship tmux 
+# Now we run for everything that was not adopted
+stow -v -R -t ~ zsh nvim git starship tmux
+# Now we reset the git repo, symlinks has been created and we now have our old dotfiles back.
+git reset --hard
 
 # Change shell
 echo "==> Changing default shell to zsh"
