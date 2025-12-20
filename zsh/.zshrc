@@ -91,9 +91,12 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR=nvim
 export VISUAL=nvim
 
-#source <(fzf --zsh)
+source <(fzf --zsh)
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+
+# Only suggest from history, can avoid needless scanning.
+ZSH_AUTOSUGGEST_STRATEGY=(history)
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
