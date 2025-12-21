@@ -18,6 +18,7 @@ sudo apt install -y \
   software-properties-common \
   xclip \
   stow \
+  tldr \
   tmux \
   zsh \
   ripgrep \
