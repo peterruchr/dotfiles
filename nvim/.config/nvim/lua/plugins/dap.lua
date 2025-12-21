@@ -38,7 +38,22 @@ return {
 							return vim.notify("Couldn't find the csproj path")
 						end
 
-						vim.fn.system("dotnet build " .. project_path)
+						vim.cmd("wall")
+						vim.notify("Building project")
+
+						vim.fn.jobstart({ "dotnet", "build", project_path, "-c", "Debug" }, {
+							stdout_buffered = true,
+							stderr_buffered = true,
+							on_exit = function(_, code)
+								if code == 0 then
+									vim.schedule(function()
+										require("dap").continue()
+									end)
+								else
+									vim.notify("Build failed", vim.log.levels.ERROR)
+								end
+							end,
+						})
 
 						return require("dap.utils").pick_file({
 							filter = string.format("Debug/.*/%s", vim.fn.fnamemodify(project_path, ":t:r")),
