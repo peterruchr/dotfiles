@@ -38,6 +38,8 @@ return {
 							return vim.notify("Couldn't find the csproj path")
 						end
 
+						vim.fn.system("dotnet build " .. project_path)
+
 						return require("dap.utils").pick_file({
 							filter = string.format("Debug/.*/%s", vim.fn.fnamemodify(project_path, ":t:r")),
 							path = string.format("%s/bin", project_path),
@@ -71,10 +73,10 @@ return {
 			dapui.setup()
 
 			local dap = require("dap")
-			dap.listeners.before.attach.dapui_config = function()
+			dap.listeners.after.attach.dapui_config = function()
 				dapui.open()
 			end
-			dap.listeners.before.launch.dapui_config = function()
+			dap.listeners.after.launch.dapui_config = function()
 				dapui.open()
 			end
 			dap.listeners.after.event_terminated.dapui_config = function()
