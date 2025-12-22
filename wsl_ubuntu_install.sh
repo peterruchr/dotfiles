@@ -57,6 +57,12 @@ sudo curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-lin
 sudo chmod +x nvim-linux-x86_64.appimage
 sudo ln -sf /usr/local/bin/nvim-linux-x86_64.appimage /usr/local/bin/nvim
 
+# Install tree-sitter
+sudo curl -LO https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-linux-x64.gz
+sudo gunzip tree-sitter-linux-x64.gz
+sudo chmod +x tree-sitter-linux-x64
+sudo ln -sf /usr/local/bin/tree-sitter-linux-x64 /usr/local/bin/tree-sitter
+
 # Install oh my zsh
 cd ~
 echo "==> Installing oh my zsh"
