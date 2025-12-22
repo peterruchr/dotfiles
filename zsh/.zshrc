@@ -86,6 +86,7 @@ alias ls='eza --icons'
 alias ll='eza -lah --icons'
 alias cat='bat'
 alias grep='rg'
+alias ghf='~/gh-fzf.sh'
 
 # --- Editor ---
 export EDITOR=nvim
