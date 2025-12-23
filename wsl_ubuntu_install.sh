@@ -105,6 +105,10 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/
 [ ! -d "$ZSH_CUSTOM/plugins/zsh-completions" ] && \
 git clone https://github.com/zsh-users/zsh-completions "$ZSH_CUSTOM/plugins/zsh-completions"
 
+# tmux plugin manager
+echo "==> Installing TPM"
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 # Still missing a hell of a lot of stuff. 
 echo "✅ Bootstrap complete."
 echo "➡ Restart your terminal or run: exec zsh"
