@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-SESSION_NAME="dev"
+SESSION_NAME=$1
 
 tmux has-session -t "$SESSION_NAME" 2>/dev/null
 
