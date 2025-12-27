@@ -2,6 +2,11 @@
 
 SESSION_NAME=$1
 
+if [ -z "$SESSION_NAME" ]; then
+    echo "Usage: Please pass session name argument"
+    exit 1
+fi
+
 tmux has-session -t "$SESSION_NAME" 2>/dev/null
 
 if [ $? -eq 1 ]; then
