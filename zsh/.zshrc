@@ -87,6 +87,7 @@ alias ll='eza -lah --icons'
 alias cat='bat'
 alias grep='rg'
 alias ghf='~/gh-fzf.sh'
+alias tmuxs='~/tmux.sh'
 
 # --- Editor ---
 export EDITOR=nvim
