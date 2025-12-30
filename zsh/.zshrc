@@ -89,6 +89,8 @@ alias grep='rg'
 alias ghf='~/gh-fzf.sh'
 alias tmuxs='~/tmux.sh'
 
+source ~/dotnet_reference.sh
+
 # --- Editor ---
 export EDITOR=nvim
 export VISUAL=nvim
@@ -101,7 +103,6 @@ ZSH_AUTOSUGGEST_STRATEGY=(history)
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
-
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source <(fzf --zsh)

@@ -52,8 +52,6 @@ add_dotnet_reference() {
             echo "No project selected, terminating..."
             return 1
         fi
-
-        echo "Picked: $target_csproj"
     fi
 
     # Filter target away, since we shouldn't add a reference to itself.
@@ -73,12 +71,50 @@ add_dotnet_reference() {
         return 1
     fi
 
-    echo "Adding references to project: $target_csproj"
-
     while IFS= read -r proj; do
-        echo "Adding reference: $proj"
         dotnet reference add $proj --project $target_csproj
     done <<<"$selected"
 }
 
-alias adr=add_dotnet_reference
+remove_dotnet_reference() {
+    local dir=$PWD
+
+    local target_csproj=$(find_nearest_csproj "$dir")
+    # If we do not find any target csproj, then look for csprojs in solution and present these using fzf.
+    if [[ -z $target_csproj ]]; then
+        local csprojs_in_sln=$(find_all_csproj_from_nearest_solution "$dir")
+        if [[ -z $csprojs_in_sln ]]; then
+            echo "Could not find any project file(s)"
+            return 1
+        fi
+
+        target_csproj=$(echo "$csprojs_in_sln" |
+            awk -F/ '{print $NF "\t" $0}' |
+            fzf --prompt "Multiple projects found, pick one to remove a reference from:" --with-nth=1 --delimiter=$'\t' |
+            cut -f2)
+
+        if [[ -z $target_csproj ]]; then
+            echo "No project selected, terminating..."
+            return 1
+        fi
+    fi
+
+    local references_for_target=$(dotnet reference list --project $target_csproj | tail -n +3)
+
+    local selected=$(echo "$references_for_target" |
+        awk -F/ '{print $NF "\t" $0}' |
+        fzf --multi --prompt "Select reference(s) to remove" --with-nth=1 --delimiter=$'\t' |
+        cut -f2)
+
+    if [[ -z $selected ]]; then
+        echo "No references selected to remove"
+        return 1
+    fi
+
+    while IFS= read -r proj; do
+        dotnet reference remove $proj --project $target_csproj
+    done <<<"$selected"
+}
+
+alias dra=add_dotnet_reference
+alias drr=remove_dotnet_reference
