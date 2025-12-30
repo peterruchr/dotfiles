@@ -27,6 +27,8 @@ sudo apt install -y \
   eza \
   jq \
   tree \
+  nodejs \
+  npm
 
 # Install zoxide
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
@@ -94,21 +96,21 @@ echo "==> Installing zsh plugings"
 ZSH_CUSTOM=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
 
 # zsh-autosuggestions
-[ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ] && \
-git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+[ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ] &&
+  git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 
 # zsh-syntax-highlighting
-[ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ] && \
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+[ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ] &&
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 
 # zsh-completions
-[ ! -d "$ZSH_CUSTOM/plugins/zsh-completions" ] && \
-git clone https://github.com/zsh-users/zsh-completions "$ZSH_CUSTOM/plugins/zsh-completions"
+[ ! -d "$ZSH_CUSTOM/plugins/zsh-completions" ] &&
+  git clone https://github.com/zsh-users/zsh-completions "$ZSH_CUSTOM/plugins/zsh-completions"
 
 # tmux plugin manager
 echo "==> Installing TPM"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-# Still missing a hell of a lot of stuff. 
+# Still missing a hell of a lot of stuff.
 echo "✅ Bootstrap complete."
 echo "➡ Restart your terminal or run: exec zsh"
