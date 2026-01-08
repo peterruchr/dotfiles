@@ -106,3 +106,6 @@ ZSH_AUTOSUGGEST_STRATEGY=(history)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source <(fzf --zsh)
+
+# opencode
+export PATH=/home/peter/.opencode/bin:$PATH
