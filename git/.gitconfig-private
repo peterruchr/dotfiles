@@ -1,0 +1,6 @@
+[user]
+    email = peterrc@outlook.dk
+    name = Peter
+# Private account SSH URL rewriting (same as global, but explicit)
+[url "git@github.com:"]
+    insteadOf = https://github.com/

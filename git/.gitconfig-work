@@ -1,0 +1,6 @@
+[user]
+    email = prc@danskecommodities.com
+    name = prc
+# Work account SSH URL rewriting (uses work host alias)
+[url "git@github.com-work:"]
+    insteadOf = https://github.com/

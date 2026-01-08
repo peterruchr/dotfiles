@@ -1,9 +1,24 @@
+# Default configuration (fallback)
 [user]
-	email = peterrc@outlook.dk
-	name = Peter
+    email = peterrc@outlook.dk
+    name = Peter
+
+# Conditional includes based on directory
+[includeIf "gitdir:~/repos/private/"]
+    path = ~/dotfiles/git/.gitconfig-private
+
+[includeIf "gitdir:~/repos/work/"]
+    path = ~/dotfiles/git/.gitconfig-work
+
+# Default SSH URL rewriting (private account)
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+
+# GitHub CLI credential helpers (default)
 [credential "https://github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
+    helper = 
+    helper = !/usr/bin/gh auth git-credential
+
 [credential "https://gist.github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
+    helper = 
+    helper = !/usr/bin/gh auth git-credential
