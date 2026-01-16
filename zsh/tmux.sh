@@ -13,6 +13,7 @@ if [ $? -eq 1 ]; then
     tmux new -d -s "$SESSION_NAME"
     tmux rename-window -t "$SESSION_NAME:1" "nvim"
     tmux new-window -t "$SESSION_NAME:2" -n "cli"
+    tmux new-window -t "$SESSION_NAME:3" -n "opencode"
     tmux select-window -t "$SESSION_NAME:1"
 fi
 

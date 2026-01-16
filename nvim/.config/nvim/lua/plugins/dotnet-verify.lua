@@ -1,6 +1,10 @@
 return {
-    'nvim-telescope/telescope.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    name = 'dotnet-verify-picker',
+    dir = vim.fn.stdpath('config'),
+    dependencies = {
+        'nvim-telescope/telescope.nvim',
+        'nvim-lua/plenary.nvim',
+    },
     config = function()
         local telescope = require('telescope')
         local pickers = require('telescope.pickers')
