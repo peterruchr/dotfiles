@@ -86,7 +86,8 @@ alias ls='eza --icons'
 alias ll='eza -lah --icons'
 alias cat='bat'
 alias grep='rg'
-alias ghf='~/gh-fzf.sh'
+alias ghf='~/gh-fzf.sh git@github.com'
+alias ghfw='~/gh-fzf.sh git@github.com-work'
 alias tmuxs='~/tmux.sh'
 
 source ~/dotnet_reference.sh
