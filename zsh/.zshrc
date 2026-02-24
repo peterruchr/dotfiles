@@ -89,6 +89,7 @@ alias grep='rg'
 alias ghf='~/gh-fzf.sh git@github.com'
 alias ghfw='~/gh-fzf.sh git@github.com-work'
 alias tmuxs='~/tmux.sh'
+alias browser='wslview'
 
 source ~/dotnet_reference.sh
 

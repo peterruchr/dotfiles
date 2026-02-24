@@ -28,7 +28,8 @@ sudo apt install -y \
   jq \
   tree \
   nodejs \
-  npm
+  npm \
+  wslu
 
 # Install zoxide
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
