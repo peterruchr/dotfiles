@@ -9,5 +9,11 @@ return {
 		statuscolumn = { enabled = true },
 		notifier = { enabled = true },
 		scroll = { enabled = true },
+		indent = {
+			enabled = true,
+			indent = { enabled = false },
+			scope = { enabled = true },
+			animate = { enabled = false },
+		},
 	},
 }
