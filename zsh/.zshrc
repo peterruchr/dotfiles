@@ -76,10 +76,13 @@ plugins=(
     git
     zsh-autosuggestions
     zsh-syntax-highlighting
-    zsh-completions
 )
 
 source $ZSH/oh-my-zsh.sh
+
+# Smart tab completion: substring + case-insensitive matching with interactive menu
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'm:{a-zA-Z}={A-Za-z} r:|[._-]=* r:|=*' 'm:{a-zA-Z}={A-Za-z} l:|=* r:|=*'
+zstyle ':completion:*' menu select
 
 # User configuration
 alias ls='eza --icons'
