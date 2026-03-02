@@ -4,6 +4,6 @@ return {
 	---@type RoslynNvimConfig
 	opts = {
 		broad_search = true,
-		slient = true,
+		silent = true,
 	},
 }
