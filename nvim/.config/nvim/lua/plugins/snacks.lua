@@ -15,5 +15,6 @@ return {
 			scope = { enabled = true },
 			animate = { enabled = false },
 		},
+		dashboard = {},
 	},
 }
