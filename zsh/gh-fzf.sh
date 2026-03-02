@@ -19,13 +19,20 @@ if [ -n "$repo" ]; then
       # Clone as bare repository using SSH
       git clone --bare "$1:$repo.git" "${repo_name}"
 
+      # Fix remote-tracking refs (bare clone uses wrong refspec by default)
+      git -C "${repo_name}" config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+      git -C "${repo_name}" fetch origin
+      git -C "${repo_name}" remote set-head origin --auto
+
       echo "Bare repository cloned to: ${repo_name}"
 
-      # Determine the default branch by looking at HEAD
-      default_branch=$(git -C "${repo_name}" rev-parse --abbrev-ref HEAD 2>/dev/null || echo "main")
+      # Get default branch from origin/HEAD
+      default_branch=$(git -C "${repo_name}" symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
 
-      # Create a main worktree inside the bare repo
-      git -C "${repo_name}" worktree add "$default_branch" "$default_branch"
+      # Create a worktree from the remote branch
+      git -C "${repo_name}" worktree add -b "$default_branch" \
+            "${repo_name}/${default_branch}" \
+            "origin/$default_branch"
 
       echo "Main worktree created at: ${repo_name}/${default_branch}"
       echo "Create additional worktrees with: git -C ${repo_name} worktree add <branch-name> <branch>"

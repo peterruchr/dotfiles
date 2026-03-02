@@ -10,6 +10,9 @@
 [includeIf "gitdir:~/repos/work/"]
     path = ~/dotfiles/git/.gitconfig-work
 
+[includeIf "gitdir:~/repos/migration-dotnet10/"]
+    path = ~/dotfiles/git/.gitconfig-work
+
 # Default SSH URL rewriting (private account)
 [url "git@github.com:"]
     insteadOf = https://github.com/
@@ -22,3 +25,5 @@
 [credential "https://gist.github.com"]
     helper = 
     helper = !/usr/bin/gh auth git-credential
+[push]
+	autoSetupRemote = true
