@@ -22,4 +22,9 @@ Invoke-Expression (&starship init powershell)
 Set-Alias ls  eza
 Set-Alias cat bat
 Set-Alias grep rg
+function l  { eza -lah --icons @args }
 function ll { eza -lah --icons @args }
+
+# Directory navigation (mirrors oh-my-zsh directories plugin)
+function .. { Set-Location .. }
+function ... { Set-Location ..\.. }
