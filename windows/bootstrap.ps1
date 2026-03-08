@@ -18,7 +18,9 @@ $tools = @(
     @{ Id = "junegunn.fzf";               Name = "fzf"           },
     @{ Id = "ajeetdsouza.zoxide";          Name = "zoxide"        },
     @{ Id = "BurntSushi.ripgrep.MSVC";     Name = "ripgrep"       },
-    @{ Id = "Starship.Starship";           Name = "starship"      }
+    @{ Id = "Starship.Starship";           Name = "starship"      },
+    @{ Id = "SST.opencode";                Name = "opencode"      },
+    @{ Id = "Github.cli";                Name = "Github Cli"      }
 )
 
 foreach ($tool in $tools) {
