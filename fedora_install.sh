@@ -5,6 +5,13 @@ set -e
 echo "==> Updating system"
 sudo dnf upgrade -y
 
+echo "==> Enabling RPM Fusion"
+if ! rpm -q rpmfusion-free-release &>/dev/null; then
+  sudo dnf install -y \
+    "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
+    "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
+fi
+
 echo "==> Installing core packages"
 sudo dnf install -y \
   gcc \
@@ -31,6 +38,46 @@ sudo dnf install -y \
   npm \
   gh
 
+echo "==> Installing codecs"
+sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
+sudo dnf groupupdate -y multimedia
+
+echo "==> Installing gaming packages"
+sudo dnf install -y \
+  steam \
+  mesa-vulkan-drivers \
+  mesa-vulkan-drivers.i686 \
+  vulkan-tools \
+  libva-mesa-driver \
+  mesa-vdpau-drivers \
+  gamemode \
+  mangohud \
+  lutris \
+  gamescope \
+  wine \
+  winetricks \
+  protontricks
+
+# Install Heroic Games Launcher
+echo "==> Installing Heroic Games Launcher"
+HEROIC_VERSION=$(curl -s https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest | grep '"tag_name"' | cut -d'"' -f4 | tr -d 'v')
+if ! rpm -q heroic-games-launcher-bin &>/dev/null; then
+  sudo dnf install -y "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest/download/Heroic-${HEROIC_VERSION}-linux-x86_64.rpm"
+fi
+
+# Install Discord
+echo "==> Installing Discord"
+if ! rpm -q discord &>/dev/null; then
+  sudo dnf install -y "https://discord.com/api/download?platform=linux&format=rpm"
+fi
+
+# Install Spotify
+echo "==> Installing Spotify"
+if ! rpm -q spotify-client &>/dev/null; then
+  sudo dnf config-manager --add-repo https://negativo17.org/repos/fedora-spotify.repo
+  sudo dnf install -y spotify-client
+fi
+
 # Install zoxide
 if ! command -v zoxide &>/dev/null; then
   curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
@@ -39,7 +86,7 @@ fi
 # Install fzf
 if [ ! -d ~/.fzf ]; then
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-  sudo ~/.fzf/install
+  ~/.fzf/install --all
 fi
 
 echo "==> Setting up git defaults"
