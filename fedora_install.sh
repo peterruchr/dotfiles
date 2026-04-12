@@ -3,19 +3,19 @@
 set -e
 
 echo "==> Updating system"
-sudo apt update
-sudo apt upgrade -y
+sudo dnf upgrade -y
 
 echo "==> Installing core packages"
-sudo apt install -y \
-  build-essential \
+sudo dnf install -y \
+  gcc \
+  gcc-c++ \
+  make \
   curl \
   wget \
   git \
   unzip \
   zip \
   ca-certificates \
-  software-properties-common \
   xclip \
   stow \
   tldr \
@@ -28,7 +28,8 @@ sudo apt install -y \
   jq \
   tree \
   nodejs \
-  npm
+  npm \
+  gh
 
 # Install zoxide
 if ! command -v zoxide &>/dev/null; then
@@ -41,19 +42,11 @@ if [ ! -d ~/.fzf ]; then
   sudo ~/.fzf/install
 fi
 
-echo "==> Installing git extras"
-sudo apt install -y gh
-
 echo "==> Setting up git defaults"
 git config --global core.editor nvim
 
-echo "==> Setup Fd find"
-# Ubuntu has some weirdness here.
+echo "==> Setup local bin"
 mkdir -p ~/.local/bin
-ln -sf "$(which fdfind)" ~/.local/bin/fd
-
-echo "==> Setup bat"
-ln -sf /usr/bin/batcat ~/.local/bin/bat
 
 # Install Neovim
 echo "==> Installing Neovim"
@@ -87,7 +80,7 @@ fi
 echo "==> Stowing dotfiles"
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 STOW_TARGETS="zsh nvim git starship tmux fzf"
-# Okay so this is kinda tricky, first we adopt anything that is already there, that means we create symlins.
+# Okay so this is kinda tricky, first we adopt anything that is already there, that means we create symlinks.
 stow -v -t ~ --adopt -d "$DOTFILES_DIR" $STOW_TARGETS
 # Now we run for everything that was not adopted
 stow -v -R -t ~ -d "$DOTFILES_DIR" $STOW_TARGETS
@@ -101,7 +94,7 @@ if [ "$SHELL" != "$(which zsh)" ]; then
 fi
 
 # Install zsh plugins
-echo "==> Installing zsh plugings"
+echo "==> Installing zsh plugins"
 ZSH_CUSTOM=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
 
 # zsh-autosuggestions
@@ -121,6 +114,5 @@ echo "==> Installing TPM"
 [ ! -d ~/.tmux/plugins/tpm ] &&
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-# Still missing a hell of a lot of stuff.
 echo "✅ Bootstrap complete."
 echo "➡ Restart your terminal or run: exec zsh"
