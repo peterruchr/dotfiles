@@ -3,8 +3,7 @@
 # Usage: pwsh -File bootstrap.ps1
 
 $ErrorActionPreference = "Stop"
-$distro = "Ubuntu-24.04"
-$dotfiles = "\\wsl.localhost\$distro\home\$env:USERNAME\dotfiles\windows"
+$dotfiles = $PSScriptRoot
 
 Write-Host "Starting Windows PS7 bootstrap..."
 
@@ -18,7 +17,9 @@ $tools = @(
     @{ Id = "junegunn.fzf";               Name = "fzf"           },
     @{ Id = "ajeetdsouza.zoxide";          Name = "zoxide"        },
     @{ Id = "BurntSushi.ripgrep.MSVC";     Name = "ripgrep"       },
-    @{ Id = "Starship.Starship";           Name = "starship"      }
+    @{ Id = "Starship.Starship";           Name = "starship"      },
+    @{ Id = "SST.opencode";                Name = "opencode"      },
+    @{ Id = "Github.cli";                Name = "Github Cli"      }
 )
 
 foreach ($tool in $tools) {
@@ -56,7 +57,7 @@ $starshipDir = "$HOME\.config"
 if (!(Test-Path $starshipDir)) { New-Item -ItemType Directory -Path $starshipDir -Force | Out-Null }
 New-Item -ItemType SymbolicLink `
     -Path "$starshipDir\starship.toml" `
-    -Target "\\wsl.localhost\$distro\home\$env:USERNAME\dotfiles\starship\.config\starship.toml" `
+    -Target "$PSScriptRoot\..\starship\.config\starship.toml" `
     -Force | Out-Null
 Write-Host "  Linked starship.toml"
 
