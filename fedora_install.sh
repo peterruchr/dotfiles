@@ -44,39 +44,25 @@ sudo dnf groupupdate -y multimedia
 
 echo "==> Installing gaming packages"
 sudo dnf install -y \
-  steam \
   mesa-vulkan-drivers \
   mesa-vulkan-drivers.i686 \
-  vulkan-tools \
-  libva-mesa-driver \
-  mesa-vdpau-drivers \
+  mesa-va-drivers \
+  mesa-va-drivers.i686
+
+sudo dnf install -y \
   gamemode \
-  mangohud \
-  lutris \
   gamescope \
-  wine \
-  winetricks \
-  protontricks
+  vulkan-tools
 
-# Install Heroic Games Launcher
-echo "==> Installing Heroic Games Launcher"
-HEROIC_VERSION=$(curl -s https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest | grep '"tag_name"' | cut -d'"' -f4 | tr -d 'v')
-if ! rpm -q heroic-games-launcher-bin &>/dev/null; then
-  sudo dnf install -y "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest/download/Heroic-${HEROIC_VERSION}-linux-x86_64.rpm"
-fi
-
-# Install Discord
-echo "==> Installing Discord"
-if ! rpm -q discord &>/dev/null; then
-  sudo dnf install -y "https://discord.com/api/download?platform=linux&format=rpm"
-fi
-
-# Install Spotify
-echo "==> Installing Spotify"
-if ! rpm -q spotify-client &>/dev/null; then
-  sudo dnf config-manager --add-repo https://negativo17.org/repos/fedora-spotify.repo
-  sudo dnf install -y spotify-client
-fi
+echo "==> Installing Apps via Flatpak"
+flatpak install -y flathub \
+  com.valvesoftware.Steam \
+  com.heroicgameslauncher.hgl \
+  net.lutris.Lutris \
+  com.usebottles.bottles \
+  com.github.Matoking.protontricks \
+  com.discordapp.Discord \
+  com.spotify.Client
 
 # Install zoxide
 if ! command -v zoxide &>/dev/null; then
