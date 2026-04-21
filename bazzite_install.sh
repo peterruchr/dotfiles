@@ -36,11 +36,7 @@ stow -v -R -t ~ -d "$DOTFILES_DIR" $STOW_TARGETS
 git -C "$DOTFILES_DIR" reset --hard
 
 # Change shell
-echo "==> Changing default shell to zsh"
-if [ "$SHELL" != "$(which zsh)" ]; then
-  chsh -s "$(which zsh)"
-fi
-
+# Since bazzite is an immutable system and zsh is installed via brew. Its not really part of the system. Thus a manual change is better where a custom command is set for the terminal. That way if zsh is uninstalled the entire computer will not break, but still use bash to login.
 # Install zsh plugins
 echo "==> Installing zsh plugins"
 ZSH_CUSTOM=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
