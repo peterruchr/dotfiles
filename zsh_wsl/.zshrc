@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:/home/linuxbrew/.linuxbrew/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -91,7 +91,8 @@ alias cat='bat'
 alias grep='rg'
 alias ghf='~/gh-fzf.sh'
 alias tmuxs='~/tmux.sh'
-alias browser='xdg-open'
+
+source ~/dotnet_reference.sh
 
 # --- Editor ---
 export EDITOR=nvim
@@ -106,7 +107,27 @@ ZSH_AUTOSUGGEST_STRATEGY=(history)
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source <(fzf --zsh)
 
 # opencode
 export PATH=/home/peter/.opencode/bin:$PATH
+
+rider() {
+    # 1. Find den nyeste Rider-sti i Linux-format
+    local rider_linux_path=("/mnt/c/Program Files/JetBrains/JetBrains Rider"*/bin/rider64.exe)
+    local latest_rider="${rider_linux_path[-1]}"
+
+    if [ ! -f "$latest_rider" ]; then
+        echo "Kunne ikke finde Rider i C:\Program Files\JetBrains"
+        return 1
+    fi
+
+    # 2. Konverter begge stier til Windows-format (vigtigt!)
+    local win_app_path=$(wslpath -w "$latest_rider")
+    local win_project_path=$(wslpath -w "${1:-.}")
+
+    # 3. Kør via cmd.exe start.
+    # De tomme anførselstegn "" er nødvendige fordi 'start' ellers tror første sti er en titel.
+    cmd.exe /c start "" "$win_app_path" "$win_project_path"
+}

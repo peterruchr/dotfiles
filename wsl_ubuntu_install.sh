@@ -86,7 +86,7 @@ fi
 # Do Stow commands
 echo "==> Stowing dotfiles"
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-STOW_TARGETS="zsh nvim git starship tmux fzf"
+STOW_TARGETS="zsh_wsl nvim git starship tmux fzf"
 # Okay so this is kinda tricky, first we adopt anything that is already there, that means we create symlins.
 stow -v -t ~ --adopt -d "$DOTFILES_DIR" $STOW_TARGETS
 # Now we run for everything that was not adopted
