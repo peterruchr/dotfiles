@@ -17,16 +17,16 @@ if [ -n "$repo" ]; then
       repo_name="${repo##*/}"
 
       # Clone as bare repository
-      git clone --bare "https://github.com/$repo.git" "${repo_name}"
-      
+      git clone --bare "git@github.com:$repo.git" "${repo_name}"
+
       echo "Bare repository cloned to: ${repo_name}"
-      
+
       # Determine the default branch by looking at HEAD
       default_branch=$(git -C "${repo_name}" rev-parse --abbrev-ref HEAD 2>/dev/null || echo "main")
-      
+
       # Create a main worktree inside the bare repo
       git -C "${repo_name}" worktree add "$default_branch" "$default_branch"
-      
+
       echo "Main worktree created at: ${repo_name}/${default_branch}"
       echo "Create additional worktrees with: git -C ${repo_name} worktree add <branch-name> <branch>"
 fi
