@@ -3,7 +3,7 @@ return {
 	---@module "roslyn.config"
 	---@type RoslynNvimConfig
 	opts = {
-		broad_search = true,
-		slient = true,
+		broad_search = false,
+		silent = true,
 	},
 }
