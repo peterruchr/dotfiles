@@ -4,15 +4,14 @@ WINIT_X11_SCALE_FACTOR = "1"
 
 [window]
 dynamic_padding = true
-decorations = "buttonless"
+decorations = "full"
 title = "Alacritty@CachyOS"
-opacity = 0.97
-padding = { x = 6, y = 6 }
+opacity = 0.8
 decorations_theme_variant = "Dark"
 
 [window.dimensions]
-columns = 200
-lines = 50
+columns = 100
+lines = 30
 
 [window.class]
 instance = "Alacritty"
@@ -50,22 +49,22 @@ cyan = "0x8FBCBB"
 white = "0xECEFF4"
 
 [font]
-size = 12.5
+size = 11
 
 [font.normal]
-family = "JetBrainsMono Nerd Font Mono"
+family = "JetBrainsMono Nerd font"
 style = "Regular"
 
 [font.bold]
-family = "JetBrainsMono Nerd Font Mono"
+family = "JetBrainsMono Nerd font"
 style = "Bold"
 
 [font.italic]
-family = "JetBrainsMono Nerd Font Mono"
+family = "JetBrainsMono Nerd font"
 style = "Italic"
 
 [font.bold_italic]
-family = "JetBrainsMono Nerd Font Mono"
+family = "JetBrainsMono Nerd font"
 style = "Bold Italic"
 
 [selection]
