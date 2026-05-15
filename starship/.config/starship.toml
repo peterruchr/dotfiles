@@ -4,6 +4,7 @@ format = """
 [](red)\
 $os\
 $username\
+${custom.distrobox}\
 [](bg:peach fg:red)\
 $directory\
 [](bg:yellow fg:peach)\
@@ -279,3 +280,12 @@ surface0 = "#363a4f"
 base = "#24273a"
 mantle = "#1e2030"
 crust = "#181926"
+
+[custom.distrobox]
+description = "Viser navnet på den aktive Distrobox-container"
+symbol = " 📦 " # Du kan ændre ikonet her, hvis du vil
+when = "[[ ! -z \"${CONTAINER_ID}\" ]]"
+command = "echo ${CONTAINER_ID}"
+style = "bg:red fg:crust"
+disabled = false
+
