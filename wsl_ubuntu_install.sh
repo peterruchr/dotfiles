@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -eu
 
 echo "==> Updating system"
 sudo apt update
@@ -27,19 +27,37 @@ sudo apt install -y \
   eza \
   jq \
   tree \
-  nodejs \
-  npm \
   wslu
 
+# Install Node.js (LTS via NodeSource)
+echo "==> Installing Node.js LTS"
+if ! command -v node &>/dev/null; then
+  curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+  sudo apt install -y nodejs
+fi
+
 # Install zoxide
-curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+if ! command -v zoxide &>/dev/null; then
+  curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+fi
 
 # Install fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-sudo ~/.fzf/install
+if [ ! -d "$HOME/.fzf" ]; then
+  git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
+  "$HOME/.fzf/install" --all --no-bash --no-fish
+fi
 
 echo "==> Installing git extras"
-sudo apt install -y gh
+if ! command -v gh &>/dev/null; then
+  sudo mkdir -p -m 755 /etc/apt/keyrings
+  out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+    && cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null
+  sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+    | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+  sudo apt update
+  sudo apt install -y gh
+fi
 
 echo "==> Setting up git defaults"
 git config --global core.editor nvim
@@ -47,37 +65,45 @@ git config --global core.editor nvim
 echo "==> Setup Fd find"
 # Ubuntu has some weirdness here.
 mkdir -p ~/.local/bin
-ln -s $(which fdfind) ~/.local/bin/fd
+if [ ! -e ~/.local/bin/fd ]; then
+  ln -s "$(which fdfind)" ~/.local/bin/fd
+fi
 
 echo "==> Setup bat"
-ln -s /usr/bin/batcat ~/.local/bin/bat
+if [ ! -e ~/.local/bin/bat ]; then
+  ln -s /usr/bin/batcat ~/.local/bin/bat
+fi
 
 # Install Neovim
 echo "==> Installing Neovim"
-
-cd /usr/local/bin
-sudo curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
-sudo chmod +x nvim-linux-x86_64.appimage
+if [ ! -f /usr/local/bin/nvim-linux-x86_64.appimage ]; then
+  sudo curl -LO --output-dir /usr/local/bin https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
+  sudo chmod +x /usr/local/bin/nvim-linux-x86_64.appimage
+fi
 sudo ln -sf /usr/local/bin/nvim-linux-x86_64.appimage /usr/local/bin/nvim
 
-# Install tree-sitter
-sudo curl -LO https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-linux-x64.gz
-sudo gunzip tree-sitter-linux-x64.gz
-sudo chmod +x tree-sitter-linux-x64
-sudo ln -sf /usr/local/bin/tree-sitter-linux-x64 /usr/local/bin/tree-sitter
+# Install tree-sitter CLI
+echo "==> Installing tree-sitter CLI"
+if ! command -v tree-sitter &>/dev/null; then
+  sudo npm install -g tree-sitter-cli
+fi
 
 # Install oh my zsh
-cd ~
 echo "==> Installing oh my zsh"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --keep-zshrc --unattended
+if [ ! -d ~/.oh-my-zsh ]; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --keep-zshrc --unattended
+fi
 
 # Install starship
 echo "==> Installing Starship"
-curl -sS https://starship.rs/install.sh | sh
+if ! command -v starship &>/dev/null; then
+  curl -sS https://starship.rs/install.sh | sh -s -- --yes
+fi
 
 # Do Stow commands
 echo "==> Stowing dotfiles"
-cd dotfiles
+DOTFILES_DIR="$(cd "$(dirname "$(realpath "$0")")" && pwd)"
+cd "$DOTFILES_DIR"
 STOW_TARGETS="zsh nvim git starship tmux fzf"
 # Okay so this is kinda tricky, first we adopt anything that is already there, that means we create symlins.
 stow -v -t ~ --adopt $STOW_TARGETS
@@ -94,23 +120,28 @@ fi
 
 # Install zsh plugins
 echo "==> Installing zsh plugings"
-ZSH_CUSTOM=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
+ZSH_CUSTOM=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
 
 # zsh-autosuggestions
-[ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ] &&
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
   git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+fi
 
 # zsh-syntax-highlighting
-[ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ] &&
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+fi
 
 # zsh-completions
-[ ! -d "$ZSH_CUSTOM/plugins/zsh-completions" ] &&
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-completions" ]; then
   git clone https://github.com/zsh-users/zsh-completions "$ZSH_CUSTOM/plugins/zsh-completions"
+fi
 
 # tmux plugin manager
 echo "==> Installing TPM"
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+if [ ! -d ~/.tmux/plugins/tpm ]; then
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
 
 # Still missing a hell of a lot of stuff.
 echo "✅ Bootstrap complete."

@@ -2,6 +2,7 @@
 [user]
     email = peterrc@outlook.dk
     name = Peter
+	signingkey = /home/peter/.ssh/id_ed5519_work.pub
 
 # Conditional includes based on directory
 [includeIf "gitdir:~/repos/private/"]
@@ -27,3 +28,7 @@
     helper = !/usr/bin/gh auth git-credential
 [push]
 	autoSetupRemote = true
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
