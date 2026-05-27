@@ -19,7 +19,7 @@ M.on_attach = function(client, bufnr)
 	map("grt", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype Definition")
 
 	-- Optional: Inlay hints toggle
-	if client.supports_method and client.supports_method("textDocument/inlayHint") then
+	if client:supports_method("textDocument/inlayHint") then
 		map("gth", function()
 			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }))
 		end, "[T]oggle Inlay [H]ints")

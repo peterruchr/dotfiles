@@ -9,6 +9,11 @@ return {
 		statuscolumn = { enabled = true },
 		notifier = { enabled = true },
 		scroll = { enabled = true },
-		dashboard = {},
+		indent = {
+			enabled = true,
+			indent = { enabled = false },
+			scope = { enabled = true },
+			animate = { enabled = false },
+		},
 	},
 }
