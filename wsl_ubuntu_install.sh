@@ -100,18 +100,6 @@ if ! command -v starship &>/dev/null; then
   curl -sS https://starship.rs/install.sh | sh -s -- --yes
 fi
 
-# Do Stow commands
-echo "==> Stowing dotfiles"
-DOTFILES_DIR="$(cd "$(dirname "$(realpath "$0")")" && pwd)"
-cd "$DOTFILES_DIR"
-STOW_TARGETS="zsh nvim git starship tmux fzf"
-# Okay so this is kinda tricky, first we adopt anything that is already there, that means we create symlins.
-stow -v -t ~ --adopt $STOW_TARGETS
-# Now we run for everything that was not adopted
-stow -v -R -t ~ $STOW_TARGETS
-# Now we reset the git repo, symlinks has been created and we now have our old dotfiles back.
-git reset --hard
-
 # Change shell
 echo "==> Changing default shell to zsh"
 if [ "$SHELL" != "$(which zsh)" ]; then
@@ -142,6 +130,18 @@ echo "==> Installing TPM"
 if [ ! -d ~/.tmux/plugins/tpm ]; then
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
+
+# Do Stow commands
+echo "==> Stowing dotfiles"
+DOTFILES_DIR="$(cd "$(dirname "$(realpath "$0")")" && pwd)"
+cd "$DOTFILES_DIR"
+STOW_TARGETS="zsh nvim git starship tmux fzf"
+# Okay so this is kinda tricky, first we adopt anything that is already there, that means we create symlins.
+stow -v -t ~ --adopt $STOW_TARGETS
+# Now we run for everything that was not adopted
+stow -v -R -t ~ $STOW_TARGETS
+# Now we reset the git repo, symlinks has been created and we now have our old dotfiles back.
+git reset --hard
 
 # Still missing a hell of a lot of stuff.
 echo "✅ Bootstrap complete."
