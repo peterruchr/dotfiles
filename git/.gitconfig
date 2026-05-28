@@ -1,24 +1,14 @@
-# Default configuration (fallback)
 [user]
-    email = peterrc@outlook.dk
-    name = Peter
-	signingkey = /home/peter/.ssh/id_ed5519_work.pub
+    email = prc@danskecommodities.com
+    name = prc
+    signingkey = ~/.ssh/id_ed25519_work.pub
 
-# Conditional includes based on directory
 [includeIf "gitdir:~/repos/private/"]
-    path = ~/dotfiles/git/.gitconfig-private
+    path = ~/.gitconfig-private
 
-[includeIf "gitdir:~/repos/work/"]
-    path = ~/dotfiles/git/.gitconfig-work
-
-[includeIf "gitdir:~/repos/migration-dotnet10/"]
-    path = ~/dotfiles/git/.gitconfig-work
-
-# Default SSH URL rewriting (private account)
-[url "git@github.com:"]
+[url "git@github.com-work:"]
     insteadOf = https://github.com/
 
-# GitHub CLI credential helpers (default)
 [credential "https://github.com"]
     helper = 
     helper = !/usr/bin/gh auth git-credential
@@ -26,9 +16,12 @@
 [credential "https://gist.github.com"]
     helper = 
     helper = !/usr/bin/gh auth git-credential
+
 [push]
-	autoSetupRemote = true
+    autoSetupRemote = true
+
 [gpg]
-	format = ssh
+    format = ssh
+
 [commit]
-	gpgsign = true
+    gpgsign = true
