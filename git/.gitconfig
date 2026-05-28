@@ -6,6 +6,9 @@
 [includeIf "gitdir:~/repos/private/"]
     path = ~/.gitconfig-private
 
+[includeIf "gitdir:~/dotfiles/"]
+    path = ~/.gitconfig-private
+
 [url "git@github.com-work:"]
     insteadOf = https://github.com/
 
